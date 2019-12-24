@@ -1,0 +1,26 @@
+pipeline{
+	agent any
+	stages{
+		stage('POM File'){
+			steps{
+				withMaven(maven : 'M2_HOME'){
+					sh 'mvn -f MvnDemo/pom.xml clean install'
+				}
+			}
+		}
+		stage('Compile Stage'){
+			steps{
+				withMaven(maven : 'M2_HOME'){
+					sh 'mvn -f MvnDemo/pom.xml clean compile'
+				}
+			}
+		}
+		stage('Testing Stage'){
+			steps{
+				withMaven(maven : 'M2_HOME'){
+					sh 'mvn -f MvnDemo/pom.xml test'
+				}
+			}
+		}
+	}
+}
